@@ -7,7 +7,6 @@ import java.util.List;
 
 void main() {
 
-
     //PixelComparisonThingy comparitior = new PixelComparisonThingy();
     FrameComparisonThingy f = new FrameComparisonThingy();
     ObjectOverlayRenderer renderer = new ObjectOverlayRenderer();
