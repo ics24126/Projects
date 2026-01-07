@@ -10,9 +10,9 @@ void main() {
 
     //PixelComparisonThingy comparitior = new PixelComparisonThingy();
     FrameComparisonThingy f = new FrameComparisonThingy();
-    AlvanosErgaths AE = new AlvanosErgaths();
+    ObjectOverlayRenderer renderer = new ObjectOverlayRenderer();
     VideoToFrameThingy TF = new VideoToFrameThingy();
-    FrameLoder l = new FrameLoder();
+    FrameLoader l = new FrameLoader();
 
 
     String framesBeforeObjectTracking = "C:\\Users\\fungi\\framesFromVideo";
@@ -60,7 +60,7 @@ void main() {
         System.out.println("Frame " + i + " has " + objects.size() + " objects");
 
         //  BufferedImage painted = AE.paintObjects(objects, curr.getWidth(), curr.getHeight());
-        BufferedImage painted = AE.paintObjects(curr, objects);
+        BufferedImage painted = renderer.paintObjects(curr, objects);
 
 
         try {

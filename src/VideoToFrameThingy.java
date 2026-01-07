@@ -14,7 +14,10 @@ public class VideoToFrameThingy {
 
         Files.createDirectories(Paths.get(outputFrameFile));
 
-        ProcessBuilder process =new ProcessBuilder("ffmpeg", "-i", inputVideoPath, outputPattern);
+        ProcessBuilder process =
+                new ProcessBuilder("ffmpeg",
+                                    "-i", inputVideoPath,
+                                    outputPattern);
 
 
         Process p = process.start();
@@ -30,12 +33,19 @@ public class VideoToFrameThingy {
         String inputPattern = inputFramesFile+"\\frame_%04d.png";
         String FramesPerSecond =String.valueOf(fps) ;
 
-        ProcessBuilder process = new ProcessBuilder("ffmpeg","-framerate",FramesPerSecond,"-i",inputPattern,"-pix_fmt","yuv420p",outputVideoPath);
+        ProcessBuilder process =
+                new ProcessBuilder("ffmpeg",
+                                    "-framerate",
+                                    FramesPerSecond,
+                                    "-i",inputPattern,
+                                    "-pix_fmt",
+                                    "yuv420p",
+                                    outputVideoPath);
+
 
         Process p = process.start();
-        int result = p.waitFor();
-        if (result != 0) {
-            Logger.error("Problem in ProcessedFramesToVideo");
+        if (p.waitFor() != 0) {
+            Logger.error("Error creating video from frames");
         }
     }
 
