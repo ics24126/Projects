@@ -1,6 +1,4 @@
 import util.Logger;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,7 +17,8 @@ public class VideoToFrameThingy {
                                     "-i", inputVideoPath,
                                     outputPattern);
 
-
+        process.redirectError(ProcessBuilder.Redirect.INHERIT);
+        process.redirectOutput(ProcessBuilder.Redirect.INHERIT);
         Process p = process.start();
         int result = p.waitFor();
 
@@ -42,6 +41,8 @@ public class VideoToFrameThingy {
                                     "yuv420p",
                                     outputVideoPath);
 
+        process.redirectError(ProcessBuilder.Redirect.INHERIT);
+        process.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 
         Process p = process.start();
         if (p.waitFor() != 0) {

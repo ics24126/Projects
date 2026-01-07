@@ -11,8 +11,8 @@ void main() {
     //PixelComparisonThingy comparitior = new PixelComparisonThingy();
     FrameComparisonThingy f = new FrameComparisonThingy();
     ObjectOverlayRenderer renderer = new ObjectOverlayRenderer();
-    VideoToFrameThingy TF = new VideoToFrameThingy();
-    FrameLoader l = new FrameLoader();
+    VideoToFrameThingy videoProcessor = new VideoToFrameThingy();
+    FrameLoader frameLoader = new FrameLoader();
 
 
     String framesBeforeObjectTracking = "C:\\Users\\fungi\\framesFromVideo";
@@ -22,7 +22,7 @@ void main() {
 
 
     try {
-        TF.VideoToFrame(inputVideoPath, framesBeforeObjectTracking);
+        videoProcessor.VideoToFrame(inputVideoPath, framesBeforeObjectTracking);
     } catch (IOException e) {
         throw new RuntimeException(e);
     } catch (InterruptedException e) {
@@ -32,7 +32,7 @@ void main() {
 
     List<BufferedImage> framesFromVideo = new ArrayList<>();
     try {
-        framesFromVideo = l.loadFrames(framesBeforeObjectTracking);
+        framesFromVideo = frameLoader.loadFrames(framesBeforeObjectTracking);
     } catch (IOException e) {
         Logger.error(e.getMessage());
     }
@@ -41,7 +41,10 @@ void main() {
     Logger.info("3");
 
 //    List<List<Point>> a = f.generateAllMovementMaps();
-
+    File processedDir = new File("C:\\Users\\fungi\\framesAfterObjectTracking");
+    if (!processedDir.exists()) {
+        processedDir.mkdirs();
+    }
     for (int i = 1; i < f.images.size(); i++) {
         Logger.info("4");
         BufferedImage prev = f.images.get(i - 1);
@@ -72,7 +75,7 @@ void main() {
     }
 
     try {
-        TF.ProcessedFramesToVideo(outputVideoPath, framesAfterObjectTracking, 2);
+        videoProcessor.ProcessedFramesToVideo(outputVideoPath, framesAfterObjectTracking, 30);
     } catch (IOException e) {
         throw new RuntimeException(e);
     } catch (InterruptedException e) {
