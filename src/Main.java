@@ -14,10 +14,10 @@ void main() {
     FrameLoader frameLoader = new FrameLoader();
 
 
-    String framesBeforeObjectTracking = "C:\\Users\\fungi\\framesFromVideo";
-    String framesAfterObjectTracking = "C:\\Users\\fungi\\framesAfterObjectTracking";
-    String inputVideoPath = "C:\\Users\\fungi\\OneDrive\\Υπολογιστής\\video.mp4";
-    String outputVideoPath = "C:\\Users\\fungi\\OneDrive\\Υπολογιστής\\outputTrackedVideo.mp4";
+    String framesBeforeObjectTracking = "C:\\Users\\fungi\\Project\\framesFromVideo";
+    String framesAfterObjectTracking = "C:\\Users\\fungi\\Project\\framesAfterObjectTracking";
+    String inputVideoPath = "C:\\Users\\fungi\\Project\\video.mp4";
+    String outputVideoPath = "C:\\Users\\fungi\\Project\\outputTrackedVideo.mp4";
 
 
     try {
@@ -35,17 +35,16 @@ void main() {
     } catch (IOException e) {
         Logger.error(e.getMessage());
     }
-    Logger.info("2");
+ 
     f.setImages(framesFromVideo);
-    Logger.info("3");
 
 //    List<List<Point>> a = f.generateAllMovementMaps();
-    File processedDir = new File("C:\\Users\\fungi\\framesAfterObjectTracking");
+    File processedDir = new File("C:\\Users\\fungi\\Project\\framesAfterObjectTracking");
     if (!processedDir.exists()) {
         processedDir.mkdirs();
     }
     for (int i = 1; i < f.images.size(); i++) {
-        Logger.info("4");
+
         BufferedImage prev = f.images.get(i - 1);
         BufferedImage curr = f.images.get(i);
 
