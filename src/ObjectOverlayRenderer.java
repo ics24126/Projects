@@ -6,22 +6,6 @@ import java.util.Random;
 public class ObjectOverlayRenderer  {
 
 
-//    public BufferedImage paintObjects(List<List<Point>> clusters, int width, int height){
-//       BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-//
-//       for (List<Point> cluster : clusters) {
-//
-//            int color = randomColor();
-//
-//            // Να θυμιθω να παω στην τραπεζα !!!!!!!!!!!!!
-//            for (Point p : cluster) {
-//                output.setRGB(p.x, p.y, color);
-//            }
-//        }
-//
-//
-//        return output ;
-//    }
 public BufferedImage paintObjects(BufferedImage original, List<List<Point>> clusters) {
 
     BufferedImage output = new BufferedImage(
