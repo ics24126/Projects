@@ -57,19 +57,18 @@ public class BFS {
         int x = p.x;
         int y = p.y;
 
-        // RIGHT
+
         if (x + 1 < width)
             list.add(new Point(x + 1, y));
 
-        // LEFT
+
         if (x - 1 >= 0)
             list.add(new Point(x - 1, y));
 
-        // DOWN
+
         if (y + 1 < height)
             list.add(new Point(x, y + 1));
 
-        // UP
         if (y - 1 >= 0)
             list.add(new Point(x, y - 1));
 
