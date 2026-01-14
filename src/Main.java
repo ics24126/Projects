@@ -1,4 +1,5 @@
     import util.Logger;
+    import mpi.*;
 
     import javax.imageio.ImageIO;
     import java.awt.*;
@@ -7,7 +8,6 @@
 
     public static void main(String[] args) {
 
-        //PixelComparisonThingy comparitior = new PixelComparisonThingy();
             FrameComparisonThingy f = new FrameComparisonThingy();
             ObjectOverlayRenderer renderer = new ObjectOverlayRenderer();
             VideoToFrameThingy videoProcessor = new VideoToFrameThingy();
@@ -20,7 +20,7 @@
             String outputVideoPath = "C:\\Users\\fungi\\Project\\outputTrackedVideo.mp4";
 
 
-            float start = System.nanoTime();
+            long start = System.nanoTime();
             try {
                 videoProcessor.VideoToFrame(inputVideoPath, framesBeforeObjectTracking);
             } catch (IOException e) {
@@ -28,7 +28,7 @@
             } catch (InterruptedException e) {
                 Logger.error(e.getMessage());
             }
-            float end = System.nanoTime();
+            long end = System.nanoTime();
             System.out.println("It took " + (end - start)/1000000000 + " Seconds for the frame extraction\n");
 
             start = System.nanoTime();
@@ -51,7 +51,6 @@
         f.setImages(framesFromVideo);
             System.out.println("It took " + (end - start)/1000000000  + " Seconds to put the extracted frames in the List of Buffered images\n");
 
-    //    List<List<Point>> a = f.generateAllMovementMaps();
 
 
 
@@ -62,7 +61,9 @@
 
             ExecutorService writerPool = Executors.newFixedThreadPool(2);
 
-            long startForLoop = System.nanoTime();
+
+
+        long startForLoop = System.nanoTime();
 
             for (int i = 1; i < f.images.size(); i++) {
 
@@ -82,11 +83,7 @@
                 totalBfsTime += (long) (end - start);
 
 
-                // System.out.println("Frame " + i + " has " + clusters.size() + " clusters");
-                //  System.out.println("Frame " + i + " movement pixels = " + movement.size());
-                //System.out.println("Frame " + i + " has " + objects.size() + " objects");
 
-                //  BufferedImage painted = AE.paintObjects(objects, curr.getWidth(), curr.getHeight());
                 start = System.nanoTime();
                 BufferedImage painted = renderer.paintObjects(curr, objects);
                 end = System.nanoTime();
@@ -120,14 +117,15 @@
             totalPutRenderedFramesToFileTime += (long) (end - start);
 
 
-        totalForLoopTime += (long) ((endForLoop - startForLoop)/ 1000000000.0);
+            totalForLoopTime += (long) ((endForLoop - startForLoop)/ 1000000000.0);
+
             System.out.println("It took " + totalPutRenderedFramesToFileTime/ 1000000000.0 + " Seconds Put Rendered Images To File\n");
             System.out.println("It took " + totalRenderTime/ 1000000000.0 + " Seconds to render all the images\n");
             System.out.println("It took " + totalBfsTime/1000000000.0 + " Seconds BFS all the images\n");
             System.out.println("It took " + totalMovementMapTime/1000000000.0 + " Seconds to make the MovementMaps\n");
             System.out.println("It took " + totalForLoopTime + " Seconds to get out of the for Loop\n" );
 
-             start = System.nanoTime();
+            start = System.nanoTime();
             try {
                 videoProcessor.ProcessedFramesToVideo(outputVideoPath, framesAfterObjectTracking, 30);
             } catch (IOException e) {
@@ -141,6 +139,5 @@
         }
 
 
-    //List<BufferedImage> framesList ;
 
 
